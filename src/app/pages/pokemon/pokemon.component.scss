@@ -1,0 +1,203 @@
+@mixin flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.containerPokemon {
+  @include flex();
+  flex-direction: column;
+  text-align: center;
+  margin-top: 0.5rem;
+  .search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem;
+    font-weight: bold;
+    p {
+      @include flex();
+      margin-right: 1rem;
+      text-align: center;
+    }
+    input {
+      font-weight: bold;
+    }
+    button {
+      border: 1px solid #000;
+      padding: 5px;
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+  .pokemon {
+    width: 100%;
+    .containerOne {
+      @include flex();
+      width: 100%;
+      p {
+        @include flex();
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        font-weight: bolder;
+        font-size: 28px;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+      }
+      h1 {
+        @include flex();
+        margin-left: 1rem;
+      }
+    }
+    .containerTwo {
+      @include flex();
+      flex-direction: row-reverse;
+      .imgContainer {
+        width: 30vw;
+        margin: -2rem 2rem 0 0;
+        img {
+          width: 100%;
+          filter: drop-shadow(0 10px 3px rgba(0, 0, 0, 0.7));
+        }
+      }
+      .types {
+        @include flex();
+        flex-direction: column;
+        font-size: 20px;
+        font-weight: bolder;
+        margin: 1rem;
+        border-radius: 50px;
+        padding: 0.5rem;
+        box-shadow: 3px 3px 10px 0px #000000;
+      }
+      .infoPokemon {
+        margin: 1rem;
+        padding: 1rem;
+        background-color: #bbbbbb85;
+        border-radius: 5px;
+        width: 50vw;
+      }
+      .abilities {
+        @include flex();
+        flex-direction: row;
+        font-size: 20px;
+        font-weight: bolder;
+        p {
+          margin: 0.5rem;
+          padding: 0.5rem 0.5rem;
+          border-radius: 50px;
+          background-color: black;
+          color:white;
+          font-size: 18px;
+          font-weight: bolder;
+        }
+      }
+
+      .stats {
+        @include flex();
+        flex-direction: column;
+        text-align: justify;
+        .statsContainer {
+          display: flex;
+          flex-direction: row;
+          border: 1px solid rgb(255, 255, 255);
+          background-color: rgba(128, 128, 128, 0.37);
+          margin: 5px;
+          border-radius: 5px;
+          width: 90%;
+          align-items: center;
+          justify-content: flex-end;
+          .barContainer {
+            @include flex();
+            flex-direction: row !important;
+          }
+          .bar {
+            display: flex;
+            align-items: center;
+            width: 200px;
+            height: 20px;
+            position: relative;
+            border: 1px solid white;
+            border-radius: 25px;
+            span {
+              height: 80%;
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+              border-top-left-radius: 20px;
+              border-bottom-left-radius: 20px;
+              background-color: black;
+              position: absolute;
+              overflow: hidden;
+              animation: prog 0.5s linear;
+            }
+            @keyframes prog {
+              0% {
+                width: 0%;
+              }
+              270% {
+                width: 270%;
+              }
+            }
+          }
+          .nameStat {
+            font-weight: bolder;
+            padding-right: 1rem;
+          }
+          p {
+            padding-left: 1rem;
+            padding: 5px;
+            font-weight: 700;
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 870px) {
+  .containerPokemon {
+    .pokemon {
+      .containerOne{
+        p{
+          width: 50px;
+          height: 50px;
+          font-size: 24px;
+        }
+      }
+      .containerTwo {
+        @include flex();
+        flex-direction: column !important;
+        .imgContainer{
+          width: 300px;
+        }
+        .typesContainer {
+          @include flex();
+          flex-direction: row !important;
+        }
+        .infoPokemon {
+          @include flex();
+          flex-direction: column;
+          width: 90vw;
+        }
+        .stats {
+          width: 90%;
+          .statsContainer {
+            flex-direction: column !important;
+            width: 100%;
+            p{
+              width: auto;
+            }
+          }
+        }
+        .abilities{
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+}

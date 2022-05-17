@@ -1,0 +1,40 @@
+<div class="containerPokemon">
+  <div class="search">
+    <p>Name Pokémon</p>
+    <input type="text" [(ngModel)]='nameSearch' placeholder="Search Name">
+    <button (click)="search()">Search</button>
+  </div>
+  <div class="pokemon">
+    <div class="containerOne">
+      <p>{{pokemon.id}}</p>
+      <h1>{{pokemon.name}}</h1>
+    </div>
+    <div class="containerTwo">
+      <div class="imgContainer">
+        <img src={{pokemon.image}} alt="Image Pokemon">
+      </div>
+      <div class="typesContainer">
+        <div [ngStyle]="{'background-color': getPrincipalType(type.type.name)}" class="types"
+          *ngFor="let type of pokemon.types">
+          <span class="type">{{type.type.name}}</span>
+        </div>
+      </div>
+      <div class="infoPokemon">
+        <div class="stats" *ngFor="let stat of pokemon.stat">
+          <span class="statsContainer">
+            <p class="nameStat">{{stat.stat.name}}</p>
+            <div class="barContainer">
+              ➜
+              <div class="bar">
+                <span [ngStyle]="{'width': progressStat(stat.base_stat)}"></span>
+              </div>
+              <p>{{stat.base_stat}}/270</p>
+            </div>
+          </span>
+        </div>
+        <div class="abilities">
+          Abilities: <p *ngFor="let ability of pokemon.abilities">{{ability.ability.name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>

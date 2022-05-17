@@ -1,0 +1,21 @@
+<header>
+  <a routerLink="home">{{ title }}</a>
+  <div class="navBar">
+    <a
+      class="link"
+      routerLinkActive="active"
+      routerLink="/pokemon/pikachu"
+      >Pokemon</a
+    >
+    <a
+      class="link"
+      routerLinkActive="active"
+      routerLink="pokemons"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      All Pokemons</a
+    >
+    <a class="link" routerLinkActive="active" routerLink="home">Home</a>
+  </div>
+</header>
+<router-outlet></router-outlet>
