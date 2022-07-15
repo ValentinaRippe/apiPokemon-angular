@@ -14,13 +14,10 @@ export class PokemonService {
   getPokemon(namePokemon: string) {
     return this.http.get(`${this.url}/${namePokemon}`);
   }
-  getPokemonsAll(url: string) {
-    return this.http.get(url);
+  getPokemonsAll(url: string = this.url, offset: number = 0, limit: number = 1200): Observable<any> {
+    return this.http.get(url+`/?limit=${limit}&offset=${offset}`);
   }
   getPokemonDetails(name: string) {
     return this.http.get(`${this.url}/${name}`);
-  }
-  getSearch(): Observable<any>{
-    return this.http.get(`${this.url}/?limit=100000&offset=0`)
   }
 }

@@ -1,0 +1,18 @@
+.Home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: calc(100vh - 65px);
+  width: 100vw;
+  overflow: hidden;
+
+  .ball2 {
+    height: 100%;
+  }
+
+  .Poke {
+    position: absolute;
+    width: 70%;
+    z-index: 1;
+  }
+}

@@ -1,55 +1,35 @@
 <div class="containerAll">
-  <div class="containerSearch">
-    <label for="searchName">Search by name</label>
-    <input
-      type="text"
-      class="searchName"
-      [spellcheck]="false"
-      placeholder="Search by name..."
-      [(ngModel)]="onSearch"
-      (ngModelChange)="nameSearch($event)"
-    />
-    <div *ngFor='let item of data' >
-      <li>{{item | json}}</li>
-    </div>
-  </div>
+  <app-search (resultSearch)="search($event)" [results]="results"></app-search>
   <div>
-    <button
-      *ngIf="buttonPages.previous"
-      class="buttonPages"
-      (click)="previous()"
-    >
-      ◄ Previous
+    <button *ngIf="buttonPages.prev" class="buttonPages" (click)="prev()">
+      ◄ Prev
     </button>
     <button *ngIf="buttonPages.next" class="buttonPages" (click)="next()">
       Next ►
     </button>
   </div>
+  <div *ngIf="isLoading" class="spinner">
+    <div id="dots2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+  </div>
   <div class="container">
-    <div
-      [routerLink]="['/pokemon/' + pokemon.name]"
-      *ngFor="let pokemon of pokemons"
-      class="card"
-    >
+    <div [routerLink]="['/pokemon/' + pokemon.name]" *ngFor="let pokemon of pokemons" class="card">
       <p>{{ pokemon.id }}</p>
-      <h1>{{ pokemon.name }}</h1>
+      <h1>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</h1>
       <div class="containerImg">
-        <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{
             pokemon.id
-          }}.png"
-          alt="{{ pokemon.name }}"
-        />
+          }}.png" alt="{{ pokemon.name }}" />
       </div>
     </div>
   </div>
   <div>
-    <button
-      *ngIf="buttonPages.previous"
-      class="buttonPages"
-      (click)="previous()"
-    >
-      ◄ Previous
+    <button *ngIf="buttonPages.prev" class="buttonPages" (click)="prev()">
+      ◄ Prev
     </button>
     <button *ngIf="buttonPages.next" class="buttonPages" (click)="next()">
       Next ►

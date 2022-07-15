@@ -1,0 +1,9 @@
+<div class="containerSearch">
+  <input
+    type="text"
+    class="searchName"
+    placeholder="Search by name..."
+    [(ngModel)]="onSearch"
+    (ngModelChange)="searchPokemon($event)"
+  />
+</div>

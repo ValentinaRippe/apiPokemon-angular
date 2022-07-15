@@ -1,12 +1,15 @@
+@import '/src/styles.scss';
 @mixin flex {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.containerAll{
+
+.containerAll {
   @include flex();
   flex-direction: column;
-  .buttonPages{
+
+  .buttonPages {
     background-color: #000;
     color: #fff;
     border: transparent;
@@ -15,44 +18,135 @@
     font-size: 16px;
     margin: 10px;
     border-radius: 5px;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
       transform: scale(1.1);
     }
   }
 }
-.container{
+
+.container {
   @include flex();
   flex-wrap: wrap;
 }
-.card{
+/**===== dots2 =====*/
+.spinner{
+  @include flex();
+  position: relative;
+}
+#dots2 {
+  margin-bottom: 1rem;
+}
+
+#dots2 span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  -webkit-animation: dots2 1s infinite ease-in-out;
+          animation: dots2 1s infinite ease-in-out;
+}
+
+#dots2 span:nth-child(1) {
+  left: 0px;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+
+#dots2 span:nth-child(2) {
+  left: 15px;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+
+#dots2 span:nth-child(3) {
+  left: 30px;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+
+#dots2 span:nth-child(4) {
+  left: 45px;
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+
+@keyframes dots2 {
+  0% {
+    -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+    -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+    background: #000000;
+  }
+  50% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px);
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px);
+    background: #000000;
+  }
+  100% {
+    -webkit-transform: translateX(7px);
+            transform: translateX(7px);
+    -webkit-transform: translateX(7px);
+            transform: translateX(7px);
+    background: #000000;
+  }
+}
+@-webkit-keyframes dots2 {
+  0% {
+    -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+    background: #000000;
+  }
+  50% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px);
+    background: #000000;
+  }
+  100% {
+    -webkit-transform: translateX(7px);
+            transform: translateX(7px);
+    background: #000000;
+  }
+}
+/** END of dots2 */
+.card {
   @include flex();
   flex-direction: column;
   width: 250px;
   height: 350px;
   margin: 1rem;
   border: 1px solid #000;
+  text-align: center;
   border-radius: 5px;
   box-shadow: 3px 3px 5px 0px #000000;
-  &:hover{
+
+  &:hover {
     transform: scale(1.05);
     cursor: pointer;
   }
-  p{
+
+  p {
     @include flex();
     background-color: black;
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
     border-radius: 50%;
     color: #fff;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bolder;
     text-align: center;
   }
-  .containerImg{
-    width: 100%;
+
+  .containerImg {
+    width: 90%;
   }
-  img{
+
+  img {
     width: 100%;
     filter: drop-shadow(0 10px 3px rgba(0, 0, 0, 0.7));
   }

@@ -6,16 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pages/pokemon/pokemon.component';
-import { PokemonsComponent } from './pages/pokemons/pokemons.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { SharedModule } from '@shared/shared.module';
+import { PokemonsModule } from './pages/pokemons/pokemons.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonComponent,
-    PokemonsComponent,
     HomeComponent,
   ],
   imports: [
@@ -25,7 +24,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AutocompleteLibModule
+    SharedModule,
+    PokemonsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

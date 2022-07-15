@@ -28,11 +28,10 @@ export interface Pokemon {
 export interface PokemonDetails {
   id: number;
   name: string;
-  image: string;
 }
 
 export interface Pages {
   next:boolean,
-  previous:boolean
+  prev:boolean
 }
 

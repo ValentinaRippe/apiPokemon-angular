@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Pokemon, Pages } from '@shared/interface/pokemon.interface';
-import { map , finalize} from 'rxjs/operators';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { PokemonDetails, Pages } from '@shared/interface/pokemon.interface';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,74 +9,74 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./pokemons.component.scss'],
 })
 export class PokemonsComponent implements OnInit {
+  @Input() results: PokemonDetails[] = [];
+
   isLoading = false
-  onSearch!: string
-  data!: [];
-  url: string = environment.api + '/?limit=20&offset=0';
+  pokemons: PokemonDetails[] = [];
+  currentPages = 0;
+  url: string = environment.api;
   urlNext!: string;
   urlPrevious!: string;
   buttonPages: Pages = {
     next: false,
-    previous: false,
+    prev: false,
   };
-  pokemons: Pokemon[] = [];
-  constructor(private pokemonsService: PokemonService) {}
+  constructor(private pokemonsService: PokemonService) {
+  }
 
   ngOnInit() {
-    this.getService(this.url);
+    this.pokemonsService.getPokemonsAll(this.url).subscribe((data: any) => {
+      this.results = data.results
+    });
+    this.getService()
   }
-
-  getService(url: string) {
-    this.pokemonsService.getPokemonsAll(url).subscribe((data: any) => {
-      this.urlNext = data.next;
-      this.urlPrevious = data.previous;
-
-      if (this.urlPrevious === null) {
-        this.buttonPages.previous = false
-      }else{
-        this.buttonPages.previous = true
-      }
-
-      if (this.urlNext === null) {
-        this.buttonPages.next = false
-      }else{
-        this.buttonPages.next = true
-      }
-
-      data.results.map((info: any) => {
-        this.pokemonsService
-          .getPokemonDetails(info.name)
-          .subscribe((data: any) => {
-            this.pokemons.push(data);
-            this.pokemons.sort((a, b) => a.id - b.id);
-          });
-      });
+  getService() {
+    this.pokemonsService.getPokemonsAll(this.url).subscribe((data: any) => {
+      this.results = data.results
+      this.getAllPokemons(this.results)
     });
   }
-  search(value:any){
+  getAllPokemons(res: any = [], cur: number = 0) {
     this.isLoading = true
-    this.pokemonsService
-    .getSearch().subscribe((data:any)=>{
+    this.results = res
+    if (res.length > cur + 20) {
+      this.buttonPages.next = true
+    } else {
+      this.buttonPages.next = false
+    }
+    if (this.currentPages > 0) {
+      this.buttonPages.prev = true
+    }else{
+      this.buttonPages.prev = false
+    }
+    res.slice(cur, cur + 20).map((info: any) => {
+      this.pokemonsService
+        .getPokemonDetails(info.name)
+        .subscribe((data: any) => {
+          const { id, name } = data;
+          this.pokemons.push({ id, name });
+          this.pokemons.sort((a, b) => a.id - b.id)
+          this.isLoading = false
+        });
+    });
+  }
+  search(res: any) {
+    this.pokemons = []
+    this.currentPages = 0
+    this.getAllPokemons(res)
+  }
 
-    })
-  }
-  nameSearch(value:any){
-   this.pokemonsService
-          .getPokemonDetails(value)
-          .subscribe((data: any) => {
-            this.pokemons = []
-            this.pokemons.push(data);
-            this.pokemons.sort((a, b) => a.id - b.id);
-          });
-  }
-  next() {
-      this.pokemons = [];
-      return this.getService(this.urlNext);
-  }
+  next = () => {
+    this.pokemons = []
+    this.getAllPokemons(this.results, this.currentPages += 20)
+  };
 
-  previous() {
-      this.pokemons = [];
-      return this.getService(this.urlPrevious);
-  }
+  prev = () => {
+    if (this.currentPages > 0) {
+      this.buttonPages.prev = false
+      this.pokemons = []
+      this.getAllPokemons(this.results, this.currentPages -= 20)
+    }
+  };
 }
 
